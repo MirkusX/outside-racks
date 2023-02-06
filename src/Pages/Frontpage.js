@@ -22,8 +22,9 @@ export const Frontpage = () => {
 
     if (state.horse === state.winner) {
       const win = state.moneyBet * 2;
-      console.log(win);
-      dispatch({ type: "money", payload: win });
+      dispatch({ type: "moneyGain", payload: win });
+    } else {
+      dispatch({ type: "moneyLoss", payload: state.moneyBet });
     }
   };
   return (
