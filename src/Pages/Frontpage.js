@@ -10,7 +10,7 @@ export const Frontpage = () => {
   };
   const start = () => {
     setWinner(HorseArray[Math.floor(Math.random() * HorseArray.length)]);
-    bet.forEach((item, index) => {
+    bet.map((item, index) => {
       if (item.horse === winner) {
         console.log("winner");
       }
