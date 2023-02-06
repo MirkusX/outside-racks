@@ -1,34 +1,56 @@
-import { useState } from "react";
-import { HorseArray } from "./FrontpageFiles.js/HorseArray";
+import { useReducer, useState } from "react";
+import { initialState, reducer } from "../Components/useReducer";
+import { HorseArray, MoneyArray } from "./FrontpageFiles.js/HorseArray";
 
 export const Frontpage = () => {
-  const [winner, setWinner] = useState();
-  const [bet, setBet] = useState([]);
-  const choose = (item) => {
-    setBet([{ horse: item }]);
-    console.log(bet);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const chooseMoney = (item) => {
+    if (state.money < item) {
+      alert("you do not have enough money");
+    } else {
+      dispatch({ type: "moneyBet", payload: item });
+    }
+  };
+  const chooseHorse = (item) => {
+    dispatch({ type: "horse", payload: item });
   };
   const start = () => {
-    setWinner(HorseArray[Math.floor(Math.random() * HorseArray.length)]);
-    bet.map((item, index) => {
-      if (item.horse === winner) {
-        console.log("winner");
-      }
+    dispatch({
+      type: "winner",
+      payload: HorseArray[Math.floor(Math.random() * HorseArray.length)],
     });
+
+    if (state.horse === state.winner) {
+      const win = state.moneyBet * 2;
+      console.log(win);
+      dispatch({ type: "money", payload: win });
+    }
   };
   return (
     <section>
       <div>
-        <h1>{winner}</h1>
+        <h1>{state.winner}</h1>
       </div>
       <div>
         {HorseArray.map((item, index) => {
           return (
-            <button key={index} onClick={() => choose(item)}>
+            <button key={index} onClick={() => chooseHorse(item)}>
               {item}
             </button>
           );
         })}
+      </div>
+      <div>
+        {MoneyArray.map((item, index) => {
+          return (
+            <button key={index} onClick={() => chooseMoney(item)}>
+              {item}
+            </button>
+          );
+        })}
+        <h2>Current money: {state.money}</h2>
+        <h2>Current bet: {state.moneyBet}</h2>
+        <h2>Current horse: {state.horse}</h2>
       </div>
       <div>
         <button onClick={() => start()}>start</button>
