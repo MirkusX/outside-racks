@@ -1,5 +1,9 @@
 import { useReducer } from "react";
-import { FlexDiv, StyledButton } from "../Components/StyledComponents";
+import {
+  FlexDiv,
+  StyledButton,
+  StyledH1,
+} from "../Components/StyledComponents";
 import { initialState, reducer } from "../Components/useReducer";
 import { HorseArray, MoneyArray } from "./FrontpageFiles.js/HorseArray";
 
@@ -24,6 +28,9 @@ export const Frontpage = () => {
     if (state.horse === state.winner) {
       const win = state.moneyBet * 2;
       dispatch({ type: "moneyGain", payload: win });
+    } else if (state.money <= 0) {
+      alert("you have 0 money");
+      return;
     } else {
       dispatch({ type: "moneyLoss", payload: state.moneyBet });
     }
@@ -31,9 +38,8 @@ export const Frontpage = () => {
   return (
     <section>
       <div>
-        <h1>{state.winner}</h1>
+        <StyledH1>{state.winner}</StyledH1>
       </div>
-
       <div>
         {HorseArray.map((item, index) => {
           return (
@@ -45,9 +51,10 @@ export const Frontpage = () => {
       </div>
       <FlexDiv>
         <FlexDiv column>
+          <h2>Bet money:</h2>
           {MoneyArray.map((item, index) => {
             return (
-              <StyledButton key={index} onClick={() => chooseMoney(item)}>
+              <StyledButton money key={index} onClick={() => chooseMoney(item)}>
                 {item}
               </StyledButton>
             );
