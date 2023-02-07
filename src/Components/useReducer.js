@@ -1,7 +1,7 @@
 export const initialState = {
   horse: "",
-  money: 5,
-  moneyBet: 5,
+  money: 100,
+  moneyBet: 100,
   winner: "",
 };
 

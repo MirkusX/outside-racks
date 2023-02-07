@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
 import { initialState, reducer } from "../Components/useReducer";
 import { HorseArray, MoneyArray } from "./FrontpageFiles.js/HorseArray";
 
