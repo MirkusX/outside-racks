@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { FlexDiv, StyledButton } from "../Components/StyledComponents";
 import { initialState, reducer } from "../Components/useReducer";
 import { HorseArray, MoneyArray } from "./FrontpageFiles.js/HorseArray";
 
@@ -32,29 +33,33 @@ export const Frontpage = () => {
       <div>
         <h1>{state.winner}</h1>
       </div>
+
       <div>
         {HorseArray.map((item, index) => {
           return (
-            <button key={index} onClick={() => chooseHorse(item)}>
+            <StyledButton key={index} onClick={() => chooseHorse(item)}>
               {item}
-            </button>
+            </StyledButton>
           );
         })}
       </div>
-      <div>
-        {MoneyArray.map((item, index) => {
-          return (
-            <button key={index} onClick={() => chooseMoney(item)}>
-              {item}
-            </button>
-          );
-        })}
+      <FlexDiv>
+        <FlexDiv column>
+          {MoneyArray.map((item, index) => {
+            return (
+              <StyledButton key={index} onClick={() => chooseMoney(item)}>
+                {item}
+              </StyledButton>
+            );
+          })}
+        </FlexDiv>
         <h2>Current money: {state.money}</h2>
         <h2>Current bet: {state.moneyBet}</h2>
         <h2>Current horse: {state.horse}</h2>
-      </div>
+      </FlexDiv>
+
       <div>
-        <button onClick={() => start()}>start</button>
+        <StyledButton onClick={() => start()}>Start</StyledButton>
       </div>
     </section>
   );
